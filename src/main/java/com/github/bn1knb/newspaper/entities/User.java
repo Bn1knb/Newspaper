@@ -4,45 +4,44 @@ package com.github.bn1knb.newspaper.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_")
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    //@Column(name = "name", nullable = false, unique = true)
     @NotNull
+    @Size(min = 3)
     private String uName;
 
-    @Column(name = "password", nullable = false)
+    //@Column(name = "password", nullable = false)
     @NotNull
-    @Size(min=6)
+    @Size(min = 6)
     private String password;
 
+    @Transient
     private String passwordConfirm;
 
-    @Column(name = "role", nullable = false)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
-    )
-    private List<Role> roles;
+    @ManyToMany
+    private Set<Role> roles;
 
     @Column(name = "approved", nullable = false)
     private boolean isApproved;
 
-    @Column(name = "news")
+    @OneToMany(mappedBy = "user")
     private Set news;
 
     public User() {
     }
 
-    public User(long id, String uName, String password, String passwordConfirm, List role, boolean isApproved, Set news) {
+    public User(long id, String uName, String password, String passwordConfirm, Set role, boolean isApproved, Set news) {
         this.id = id;
         this.uName = uName;
         this.password = password;
@@ -84,11 +83,11 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public List<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -100,7 +99,6 @@ public class User {
         isApproved = approved;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public Set getNews() {
         return news;
     }

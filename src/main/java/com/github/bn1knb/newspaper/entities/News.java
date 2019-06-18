@@ -16,21 +16,21 @@ public class News {
     @Column(name = "headline")
     private String headline;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
 
     @Column(name = "comments")
-    private Set commets;
+    private Set comments;
 
     public News() {
 
     }
 
-    public News(String textContent, String headline, User user, Set commets) {
+    public News(String textContent, String headline, User user, Set comments) {
         this.textContent = textContent;
         this.headline = headline;
         this.user = user;
-        this.commets = commets;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -65,11 +65,11 @@ public class News {
         this.user = user;
     }
 
-    public Set getCommets() {
-        return commets;
+    public Set getComments() {
+        return comments;
     }
 
-    public void setCommets(Set commets) {
-        this.commets = commets;
+    public void setComments(Set comments) {
+        this.comments = comments;
     }
 }
