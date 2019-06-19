@@ -29,17 +29,9 @@ public class User {
     private String privilege;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Post> news;
+    private List<Post> posts;
 
     public User() {
-    }
-
-    public User(@NotNull String name, @NotNull String email, @NotNull String password, @NotNull String privilege) {
-
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.privilege = privilege;
     }
 
     public String getName() {
@@ -74,12 +66,12 @@ public class User {
         this.privilege = privilege;
     }
 
-    public List<Post> getNews() {
-        return news;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setNews(List<Post> news) {
-        this.news = news;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @PrePersist

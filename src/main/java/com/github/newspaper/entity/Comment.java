@@ -32,12 +32,6 @@ public class Comment {
 
     private Date createdAt;
 
-    public Comment(@NotNull String content, @NotNull User user, @NotNull Post post) {
-        this.content = content;
-        this.user = user;
-        this.post = post;
-    }
-
     public Comment() {
     }
 

@@ -35,12 +35,6 @@ public class Post {
     public Post() {
     }
 
-    public Post(@NotNull String content, @NotNull String headLine, User user) {
-        this.content = content;
-        this.headLine = headLine;
-        this.user = user;
-    }
-
     public String getContent() {
         return content;
     }
