@@ -1,4 +1,4 @@
-package com.github.newspaper.entity;
+package com.github.newspaper.auth;
 
 public class Privileges {
 
