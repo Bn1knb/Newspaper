@@ -1,4 +1,4 @@
-package com.github.newspaper.auth;
+package com.github.newspaper.security;
 
 enum Privilege {
 

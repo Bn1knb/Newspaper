@@ -1,6 +1,8 @@
 package com.github.newspaper.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -14,18 +16,22 @@ public class User {
     private Long id;
 
     @NotNull
-    @Size(min = 3)
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String name;
 
     @NotNull
+    @NotBlank
+    @Email(message = "invalid email")
     private String email;
 
     @NotNull
-    @Size(min = 6)
+    @NotBlank
+    @Size(min = 6, max = 50)
     private String password;
 
     private Date createdAt;
-
+    
     private String privilege;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
