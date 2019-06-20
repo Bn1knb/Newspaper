@@ -1,5 +1,8 @@
 package com.github.newspaper.entity;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class User {
 
     @Id
@@ -16,23 +21,25 @@ public class User {
     private Long id;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Username is required")
     @Size(min = 3, max = 15)
-    private String name;
+    private String userName;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Email is required")
     @Email(message = "invalid email")
     private String email;
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Password is required")
     @Size(min = 6, max = 50)
     private String password;
 
     private Date createdAt;
-    
-    private String privilege;
+
+    private boolean isEnabled = false;
+
+    private Enum privilege;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -40,12 +47,12 @@ public class User {
     public User() {
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -64,11 +71,11 @@ public class User {
         this.password = password;
     }
 
-    public String getPrivilege() {
+    public Enum getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(String privilege) {
+    public void setPrivilege(Enum privilege) {
         this.privilege = privilege;
     }
 
@@ -83,5 +90,13 @@ public class User {
     @PrePersist
     void createAt() {
         this.createdAt = new Date();
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }
