@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findUserByEmail(String email) ;
-    User findUserByUserName(String userName);
-    boolean getIsEnabledInUser(User user);
+    User findUserByUsername(String userName);
+    boolean IsEnabled(User user);
 }

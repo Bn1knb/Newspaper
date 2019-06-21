@@ -1,13 +1,12 @@
 package com.github.newspaper.entity;
 
+import com.github.newspaper.security.Role;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,25 +20,19 @@ public class User {
     private Long id;
 
     @NotNull
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 15)
-    private String userName;
+    private String username;
 
     @NotNull
-    @NotBlank(message = "Email is required")
-    @Email(message = "invalid email")
     private String email;
 
     @NotNull
-    @NotBlank(message = "Password is required")
-    @Size(min = 6, max = 50)
     private String password;
 
     private Date createdAt;
 
     private boolean isEnabled = false;
 
-    private Enum privilege;
+    private ArrayList<String> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -47,12 +40,12 @@ public class User {
     public User() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -69,14 +62,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Enum getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(Enum privilege) {
-        this.privilege = privilege;
     }
 
     public List<Post> getPosts() {
@@ -98,5 +83,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public ArrayList<String> getRoles() {
+        return roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add("ROLE_"+role);
     }
 }

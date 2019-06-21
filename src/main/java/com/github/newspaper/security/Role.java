@@ -1,8 +1,7 @@
 package com.github.newspaper.security;
 
-enum Privilege {
-
+public enum Role {
     ADMIN,
-    USER,
-    MODERATOR
+    MODERATOR,
+    USER
 }

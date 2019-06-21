@@ -1,9 +1,8 @@
 package com.github.newspaper.security.controller;
 
-import com.github.newspaper.dao.UserRepository;
+import com.github.newspaper.dto.UserRegistrationDto;
 import com.github.newspaper.entity.User;
-import com.github.newspaper.security.service.SecurityService;
-import com.github.newspaper.security.service.UserService;
+import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,31 +19,28 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserService userService;
 
-    @Autowired
-    SecurityService securityService;
-
     @GetMapping
-    public String showSignForm(Model model) {
-
-        model.addAttribute("userForm", new User());  ///TODO add DTO and interact with it instead of user object
+    public String signupForm(Model model) {
+        model.addAttribute("user", new User());
         return "signup";
     }
 
     @PostMapping
-    public String signup(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult) {
+    public String signup(@ModelAttribute @Valid UserRegistrationDto userDto, BindingResult bindingResult) {
+
+        User existing = userService.findUserByEmail(userDto.getEmail());
+        if (existing != null){
+            return "signup";
+            //TODO add email dup warning
+        }
 
         if (bindingResult.hasErrors()) {
             return "signup";
         }
+        userService.save(userDto);
 
-        userRepository.save(user);
-        securityService.autoLogin(user.getUserName(), user.getPassword());
-
-        return "redirect:index";
+        return "redirect:/signin";
     }
 }
