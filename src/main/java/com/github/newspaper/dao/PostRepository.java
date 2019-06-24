@@ -1,4 +1,4 @@
-package com.github.newspaper.repository;
+package com.github.newspaper.dao;
 
 import com.github.newspaper.entity.Post;
 import org.springframework.data.repository.CrudRepository;

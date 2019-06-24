@@ -1,12 +1,16 @@
 package com.github.newspaper.entity;
 
+import com.github.newspaper.security.Role;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class User {
 
     @Id
@@ -14,19 +18,19 @@ public class User {
     private Long id;
 
     @NotNull
-    @Size(min = 3)
-    private String name;
+    private String username;
 
     @NotNull
     private String email;
 
     @NotNull
-    @Size(min = 6)
     private String password;
 
     private Date createdAt;
 
-    private String privilege;
+    private boolean isEnabled = false;
+
+    private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -34,12 +38,12 @@ public class User {
     public User() {
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -58,14 +62,6 @@ public class User {
         this.password = password;
     }
 
-    public String getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
-    }
-
     public List<Post> getPosts() {
         return posts;
     }
@@ -77,5 +73,21 @@ public class User {
     @PrePersist
     void createAt() {
         this.createdAt = new Date();
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public Collection<String> getRoles() {
+        return Collections.singletonList(this.role);
+    }
+
+    public void addRole(String role) {
+        this.role = "ROLE_" + role;
     }
 }

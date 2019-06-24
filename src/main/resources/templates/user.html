@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+</head>
+<body>
+<h1> User page</h1>
+<h2>Welcome: <span th:utext="${#request.userPrincipal.name}"></span> </h2>
+</body>
+</html>
