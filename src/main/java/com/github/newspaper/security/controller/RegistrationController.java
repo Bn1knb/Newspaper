@@ -15,32 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/signup")
+@RequestMapping("/register")
 public class RegistrationController {
 
     @Autowired
     UserService userService;
 
     @GetMapping
-    public String signupForm(Model model) {
-        model.addAttribute("user", new User());
-        return "signup";
+    public String registerForm(Model model) {
+        model.addAttribute("userDto", new UserRegistrationDto());
+        return "register";
     }
 
     @PostMapping
-    public String signup(@ModelAttribute @Valid UserRegistrationDto userDto, BindingResult bindingResult) {
+    public String register(@Valid @ModelAttribute("userDto") UserRegistrationDto userDto/*, BindingResult bindingResult, Model model*/) {
 
-        User existing = userService.findUserByEmail(userDto.getEmail());
+       /* User existing = userService.findUserByEmail(userDto.getEmail());
         if (existing != null){
-            return "signup";
-            //TODO add email dup warning
+
+            model.addAttribute("emailError", "Email exists");
+            return "register";
         }
 
         if (bindingResult.hasErrors()) {
-            return "signup";
-        }
+            return "register";
+        }*/
+        System.out.println("saving the user");
         userService.save(userDto);
 
-        return "redirect:/signin";
+        return "redirect:login";
     }
 }

@@ -11,7 +11,7 @@ public interface UserService extends UserDetailsService {
 
     boolean isEnabled(User user);
 
-    void addRole(User user, Role role);
+    void addRole(User user, String role);
 
     void save(UserRegistrationDto userDto);
 

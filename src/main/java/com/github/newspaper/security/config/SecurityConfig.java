@@ -38,13 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("USER")
                 .antMatchers("/moderator/**")
                     .hasRole("MODERATOR")
-                .antMatchers("/signup")
+                .antMatchers("/register")
                     .permitAll()
+                .antMatchers("/index")
+                    .authenticated()
+                .antMatchers("/")
+                    .authenticated()
+             .and()
+                    .exceptionHandling().accessDeniedPage("/403")
              .and()
                 .formLogin()
                 .loginPage(
-                        "/signin"
-                );//.successHandler(//TODO custom sucsess handler);
+                        "/login"
+                ).defaultSuccessUrl("/", true);//.successHandler(//TODO custom sucsess handler);
     }
 
     @Override

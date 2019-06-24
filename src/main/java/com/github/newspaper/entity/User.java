@@ -6,9 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @DynamicUpdate
@@ -32,7 +30,7 @@ public class User {
 
     private boolean isEnabled = false;
 
-    private ArrayList<String> roles;
+    private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -85,11 +83,11 @@ public class User {
         isEnabled = enabled;
     }
 
-    public ArrayList<String> getRoles() {
-        return roles;
+    public Collection<String> getRoles() {
+        return Collections.singletonList(this.role);
     }
 
-    public void addRole(Role role) {
-        this.roles.add("ROLE_"+role);
+    public void addRole(String role) {
+        this.role = "ROLE_" + role;
     }
 }

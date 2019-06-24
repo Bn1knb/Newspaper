@@ -3,7 +3,6 @@ package com.github.newspaper.service.implementation;
 import com.github.newspaper.dao.UserRepository;
 import com.github.newspaper.dto.UserRegistrationDto;
 import com.github.newspaper.entity.User;
-import com.github.newspaper.security.Role;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,25 +20,20 @@ import java.util.Collection;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public boolean isEnabled(User user) {
         return userRepository.IsEnabled(user);
     }
 
-    //TODO change role in user to string not collection and covert to collection here note: used for cuxtom redirect
+    //TODO change role in user to string not collection and covert to collection here note: used for custom redirect
 
     @Override
-    public void addRole(User user, Role role) {
+    public void addRole(User user, String role) {
 
         user.addRole(role);
         userRepository.save(user);
@@ -52,7 +46,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.addRole(Role.USER);
+        System.out.println("user email set to " + userDto.getEmail());
         userRepository.save(user);
     }
 

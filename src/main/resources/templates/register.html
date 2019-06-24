@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Sign up</h1>
-    <form method="post" th:action="@{/signup}" th:object="${user}" >
+    <form method="post" th:action="@{/register}" th:object="${userDto}" >
 
         <label>Username:</label><br/>
         <input type="text" th:field="*{username}"><br/>
@@ -37,7 +37,7 @@
         </span>
         <br/><br/>
 
-        <input type="submit" th:value="Signup">
+        <input type="submit" th:value="register">
 
 
 
