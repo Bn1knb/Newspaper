@@ -24,45 +24,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {  //TODO add oauth to other pages
         http
-                .authorizeRequests()
-                    .antMatchers("/admin/**")
-                        .hasRole("ADMIN")
-                    .antMatchers("/user/**")
-                        .hasRole("USER")
-                    .antMatchers("/moderator/**")
-                        .hasRole("MODERATOR")
-                    .antMatchers("/register")
-                        .permitAll()
-                    .antMatchers("/index")
-                        .permitAll()
-                    .antMatchers("/")
-                        .permitAll()
-                    .antMatchers("/feed")
-                        .authenticated()
-                    .antMatchers("/post/**")
-                        .authenticated()
-                .and()
-                    .exceptionHandling()
-                        .accessDeniedPage("/403")
-                .and()
-                    .formLogin()
-                .loginPage(
-                        "/login"
-                ).defaultSuccessUrl("/feed", true);//.successHandler(//TODO custom sucsess handler);
+            .authorizeRequests()
+            .antMatchers("/admin/**")
+            .hasRole("ADMIN")
+            .antMatchers("/user/**")
+            .hasRole("USER")
+            .antMatchers("/moderator/**")
+            .hasRole("MODERATOR")
+            .antMatchers("/register")
+            .permitAll()
+            .antMatchers("/index")
+            .permitAll()
+            .antMatchers("/")
+            .permitAll()
+            .antMatchers("/feed")
+            .authenticated()
+            .antMatchers("/post/**")
+            .authenticated()
+            .and()
+            .exceptionHandling()
+            .accessDeniedPage("/403")
+            .and()
+            .formLogin()
+            .loginPage(
+                "/login"
+            ).defaultSuccessUrl("/feed", true);//.successHandler(//TODO custom sucsess handler);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-                .ignoring()
-                .antMatchers("/resources/**");
+            .ignoring()
+            .antMatchers("/resources/**");
     }
 
     @Bean

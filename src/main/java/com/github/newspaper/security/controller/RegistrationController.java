@@ -40,7 +40,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-
+        // TODO you forgot to add role for user!
         userService.save(userDto);
 
         return "redirect:login";
