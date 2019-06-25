@@ -16,28 +16,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
-public class PostController {
+public class PostsController {
 
     @Autowired
     PostService postService;
-
     @Autowired
     UserService userService;
 
     @RequestMapping("/posts/view/{id}")
-    public String view(@PathVariable("id") Long id, Model model){
+    public String view(@PathVariable("id") Long id, Model model) {
+
         Post post = this.postService.findById(id);
-        if( post == null ){
+        if (post == null) {
             return "redirect:/";
         }
         model.addAttribute("post", post);
         return "posts/view";
     }
 
-    @RequestMapping("/posts/create")
-    public ModelAndView create(){
+    @RequestMapping("/post/create")
+    public ModelAndView create() {
+
         ModelAndView modelAndView = new ModelAndView();
         Post post = new Post();
         modelAndView.addObject(post);
@@ -46,25 +48,28 @@ public class PostController {
     }
 
     @RequestMapping(value = "/posts/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid Post post, BindingResult bindingResult){
+    public ModelAndView create(@Valid Post post, BindingResult bindingResult, Model model, Principal principal) {
 
+
+        User currentUser = userService.findByUsername(principal.getName());
+        model.addAttribute("user", currentUser);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("posts/create");
 
-        if( post.getHeadLine().isEmpty() ){
+        if (post.getHeadLine().isEmpty()) {
             bindingResult.rejectValue("title", "error.post", "Title cannot be empty");
         }
-        if( post.getContent().isEmpty() ){
-            bindingResult.rejectValue("content", "error.post", "Content cannot be empty");
+        if (post.getContent().isEmpty()) {
+            bindingResult.rejectValue("body", "error.post", "Content cannot be empty");
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = this.userService.findByUserName(auth.getName());
+        User user = this.userService.findByUsername(auth.getName());
 
-        if( user == null ){
-            bindingResult.rejectValue("author", "error.post", "Author cannot be null");
+        if (user == null) {
+            bindingResult.rejectValue("author", "error.post", "Author cannot be null"); //TODO add authentification on securityconfig
         }
-        if( !bindingResult.hasErrors() ){
+        if (!bindingResult.hasErrors()) {
             post.setUser(user);
             this.postService.post(post);
             modelAndView.addObject("successMessage", "Post has been created");

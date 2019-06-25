@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${post.headLine}">View Post</title>
+</head>
+
+<body>
+<header></header>
+
+<main id="posts">
+    <article>
+        <h2 class="title" th:text="${post.headLine}">Post Title</h2>
+        <div class="date">
+            <i>Posted on</i>
+            <span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}"></span>
+            <span th:if="${post.user}" th:remove="tag">
+		    	<i>by</i>
+		        <span th:text="${post.user.username != null ? post.user.username : post.user.username}"></span>
+		    </span>
+        </div>
+        <p class="content" th:utext="${post.content}">t</p>
+    </article>
+</main>
+
+<footer></footer>
+</body>
+
+</html>

@@ -32,25 +32,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {  //TODO add oauth to other pages
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**")
-                   .hasRole("ADMIN")
-                .antMatchers("/user/**")
-                    .hasRole("USER")
-                .antMatchers("/moderator/**")
-                    .hasRole("MODERATOR")
-                .antMatchers("/register")
-                    .permitAll()
-                .antMatchers("/index")
-                    .authenticated()
-                .antMatchers("/")
-                    .authenticated()
-             .and()
-                    .exceptionHandling().accessDeniedPage("/403")
-             .and()
-                .formLogin()
+                    .antMatchers("/admin/**")
+                        .hasRole("ADMIN")
+                    .antMatchers("/user/**")
+                        .hasRole("USER")
+                    .antMatchers("/moderator/**")
+                        .hasRole("MODERATOR")
+                    .antMatchers("/register")
+                        .permitAll()
+                    .antMatchers("/index")
+                        .permitAll()
+                    .antMatchers("/")
+                        .permitAll()
+                    .antMatchers("/feed")
+                        .authenticated()
+                    .antMatchers("/post/**")
+                        .authenticated()
+                .and()
+                    .exceptionHandling()
+                        .accessDeniedPage("/403")
+                .and()
+                    .formLogin()
                 .loginPage(
                         "/login"
-                ).defaultSuccessUrl("/", true);//.successHandler(//TODO custom sucsess handler);
+                ).defaultSuccessUrl("/feed", true);//.successHandler(//TODO custom sucsess handler);
     }
 
     @Override

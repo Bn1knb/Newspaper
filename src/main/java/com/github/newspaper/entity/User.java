@@ -89,6 +89,10 @@ public class User {
         return Collections.singletonList(this.role);
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public void addRole(String role) {
         this.role = "ROLE_" + role;
     }

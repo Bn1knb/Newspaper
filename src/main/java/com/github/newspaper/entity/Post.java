@@ -30,7 +30,7 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    private Date createdAt;
+    private Date date;
 
     public Post() {
     }
@@ -69,6 +69,14 @@ public class Post {
 
     @PrePersist
     void createAt() {
-        this.createdAt = new Date();
+        this.date = new Date();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

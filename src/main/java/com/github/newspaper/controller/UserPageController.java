@@ -13,11 +13,11 @@ import java.security.Principal;
 @RequestMapping(value = "/user")
 public class UserPageController {
 
-        @GetMapping
-        public String index(Model model, Principal principal) {
+    @GetMapping
+    public String index(Model model, Principal principal) {
 
-            User loggedinUser = (User) ((Authentication) principal).getPrincipal();
-            model.addAttribute("user", loggedinUser);
-            return "user";
-        }
+        User loggedinUser = (User) ((Authentication) principal).getPrincipal();
+        model.addAttribute("user", loggedinUser);
+        return "user";
+    }
 }

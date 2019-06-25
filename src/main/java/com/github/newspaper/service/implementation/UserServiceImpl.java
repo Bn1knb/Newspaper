@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        System.out.println("user email set to " + userDto.getEmail());
+        user.addRole("ADMIN");
         userRepository.save(user);
     }
 
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
 
         User user = userRepository.findUserByEmail(email);
-        if (user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid email");
         }
         return user;
@@ -76,11 +76,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserName(String name) {
-        return userRepository.findUserByUsername(name);
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
         User user = userRepository.findUserByUsername(userName);
@@ -91,7 +86,7 @@ public class UserServiceImpl implements UserService {
                 mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles){
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
 
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
         for (String role : roles) {
