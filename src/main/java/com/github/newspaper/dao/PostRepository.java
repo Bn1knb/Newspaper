@@ -17,6 +17,8 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 
     List<Post> findAllByUserOrderByDate(User user);
 
+    Post findPostById(Long id);
+
     //Iterable<Post> findAllOrderByDate();
 
     //Iterable<Post> findAllOrderByComments(); //TODO idk this need to be done smhow

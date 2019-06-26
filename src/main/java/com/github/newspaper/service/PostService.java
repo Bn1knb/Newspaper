@@ -13,7 +13,7 @@ public interface PostService {
 
     void approve(Post post);
 
-    void delete(String headline);
+    void delete(Long id);
 
     void change(String headline);
 
