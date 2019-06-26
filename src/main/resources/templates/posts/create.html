@@ -9,9 +9,9 @@
 <header>
     <a href="/post/create">Post news</a>
     <div th:switch="${user.getRole()}">
-        <p th:case="'ROLE_USER'"><a href="user.html">Userpage</a> </p>
-        <p th:case="'ROLE_ADMIN'"><a href="admin.html">Adminpage</a> </p>
-        <p th:case="'ROLE_MODERATOR'"><a href="moderator.html">ModeratorPage</a></p>
+        <p th:case="'ROLE_USER'"><a href="/user">Userpage</a> </p>
+        <p th:case="'ROLE_ADMIN'"><a href="/admin">Adminpage</a> </p>
+        <p th:case="'ROLE_MODERATOR'"><a href="/moderator">ModeratorPage</a></p>
     </div></a>
 </header>
 

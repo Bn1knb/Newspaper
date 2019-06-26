@@ -20,6 +20,9 @@ public class Post {
     private String content;
 
     @NotNull
+    private boolean isApproves = false;
+
+    @NotNull
     private String headLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -78,5 +81,13 @@ public class Post {
 
     public Long getId() {
         return id;
+    }
+
+    public boolean isApproved() {
+        return isApproves;
+    }
+
+    public void setApproved(boolean approves) {
+        isApproves = approves;
     }
 }

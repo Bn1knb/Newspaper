@@ -38,10 +38,12 @@ public class PostsController {
     }
 
     @RequestMapping("/post/create")
-    public ModelAndView create() {
+    public ModelAndView create(Principal principal) {
 
+        User currentUser = userService.findByUsername(principal.getName());
         ModelAndView modelAndView = new ModelAndView();
         Post post = new Post();
+        modelAndView.addObject(currentUser);
         modelAndView.addObject(post);
         modelAndView.setViewName("posts/create");
         return modelAndView;
@@ -64,13 +66,9 @@ public class PostsController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = this.userService.findByUsername(auth.getName());
 
-        if (user == null) {
-            bindingResult.rejectValue("author", "error.post", "Author cannot be null"); //TODO add authentification on securityconfig
-        }
         if (!bindingResult.hasErrors()) {
-            post.setUser(user);
+            post.setUser(currentUser);
             this.postService.post(post);
             modelAndView.addObject("successMessage", "Post has been created");
             modelAndView.addObject("post", new Post());

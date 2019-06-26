@@ -14,7 +14,18 @@
 
 <aside>
     <h2>Recent Posts</h2>
-    <a href="#" th:each="p : ${latest5Posts}" th:text="${p.headLine}" th:href="@{/posts/view/{id}/(id=${p.id})}">no recent news</a></br>
+    <td>
+        <table>
+            <tbody>
+            <tr th:each="p : ${latest5Posts}">
+                <td>
+                    <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </td>
 </aside>
 
 <main id="posts">

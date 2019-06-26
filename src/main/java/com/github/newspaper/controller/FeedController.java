@@ -28,7 +28,7 @@ public class FeedController {
 
         model.addAttribute("user", currentUser);
 
-        List<Post> latest5Posts = this.postService.findLatest5();
+        List<Post> latest5Posts = postService.findLatest5();
 
         if (latest5Posts == null) {
 

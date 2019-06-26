@@ -1,6 +1,7 @@
 package com.github.newspaper.service;
 
 import com.github.newspaper.entity.Post;
+import com.github.newspaper.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface PostService {
 
     void post(Post post);
 
+    void approve(Post post);
+
     void delete(String headline);
 
     void change(String headline);
@@ -17,6 +20,8 @@ public interface PostService {
     Iterable<Post> getPostsOrderBYDate();
 
     Iterable<Post> getPostsOrderByComments();
+
+    List<Post> findAllPostsOfUser(User user);
 
     Post findById(Long id);
 

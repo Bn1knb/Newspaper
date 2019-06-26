@@ -2,6 +2,7 @@ package com.github.newspaper.service.implementation;
 
 import com.github.newspaper.dao.PostRepository;
 import com.github.newspaper.entity.Post;
+import com.github.newspaper.entity.User;
 import com.github.newspaper.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +26,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void approve(Post post) {
+        post.setApproved(true);
+    }
+
+    @Override
     public void delete(String headline) {
 
     }
@@ -43,6 +49,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public Iterable<Post> getPostsOrderByComments() {
         return null;
+    }
+
+    @Override
+    public List<Post> findAllPostsOfUser(User user) {
+        return postRepository.findAllByUserOrderByDate(user);
     }
 
     @Override
