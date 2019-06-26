@@ -1,12 +1,14 @@
 package com.github.newspaper.entity;
 
-import com.github.newspaper.security.Role;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @DynamicUpdate
@@ -85,6 +87,10 @@ public class User {
 
     public Collection<String> getRoles() {
         return Collections.singletonList(this.role);
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public void addRole(String role) {

@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
     <title>Feed</title>
 </head>
 <body>
-<h1> News Page</h1>
+<header>
+    <a href="/post/create">Post news</a>
+    <div th:switch="${user.getRole()}">
+    <p th:case="'ROLE_USER'"><a href="user">Userpage</a> </p>
+    <p th:case="'ROLE_ADMIN'"><a href="admin">Adminpage</a> </p>
+    <p th:case="'ROLE_MODERATOR'"><a href="moderator">ModeratorPage</a></p>
+</div></a>
+</header>
+
+<aside>
+    <h2>Recent Posts</h2>
+    <td>
+        <table>
+            <tbody>
+            <tr th:each="p : ${latest5Posts}">
+                <td>
+                    <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</aside>
+
+<main id="posts">
+    <p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
+    <article th:each="p : ${latest3Posts}">
+        <h2 class="title" th:text="${p.headLine}">headline</h2>
+        <div class="date">
+            <i>Posted on</i>
+            <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
+            <span th:if="${p.user}" th:remove="tag">
+	          <i>by</i>
+	          <span th:text="${p.user.username != null ? p.user.username : p.user.username}">username</span>
+	        </span>
+        </div>
+        <p class="content" th:utext="${p.content}">Post content</p>
+    </article>
+</main>
+
+<footer></footer>
 </body>
 </html>
+© 2019 GitHub, Inc.

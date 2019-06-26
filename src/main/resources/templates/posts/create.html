@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit Post</title>
+</head>
+
+<body>
+<header>
+    <a href="/post/create">Post news</a>
+    <div th:switch="${user.getRole()}">
+        <p th:case="'ROLE_USER'"><a href="/user">Userpage</a> </p>
+        <p th:case="'ROLE_ADMIN'"><a href="/admin">Adminpage</a> </p>
+        <p th:case="'ROLE_MODERATOR'"><a href="/moderator">ModeratorPage</a></p>
+    </div></a>
+</header>
+
+<h2>Add some news</h2>
+
+<div class="container row">
+    <form action="#" th:action="@{/posts/create}" th:object="${post}" method="post" class="form col-md-5 col-md-offset-7">
+        <div class="form-group">
+            <label>HeadLine</label>
+            <br/>
+            <input type="text" th:field="*{headLine}" th:class="${#fields.hasErrors('headLine') ? 'form-control is-invalid' : 'form-control'}" />
+            <div th:if="${#fields.hasErrors('headLine')}" th:errors="*{headLine}" class="invalid-feedback"></div>
+            <br/>
+        </div><!-- Post Title -->
+        <div class="form-group">
+            <label>Content</label>
+            <br/>
+            <textarea rows="5" cols="" th:field="*{content}" th:class="${#fields.hasErrors('content') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
+            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></div>
+            <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="invalid-feedback"></div>
+        </div><!-- Post Content -->
+        <div class="form-group clearfix">
+            <button type="submit" class="btn btn-primary float-right">Create Post</button>
+        </div><!-- Submit Button -->
+        <div class="form-group">
+            <div th:class="${successMessage} ? 'alert alert-success' : ''" th:text="${successMessage}"></div>
+        </div>
+    </form>
+</div>
+
+<footer></footer>
+</body>
+
+</html>

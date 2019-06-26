@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
 </head>
 <body>
-    <h1>There's no such account</h1>
+<h1>Error 403</h1>
+    <h1 th:if="${message != null}" th:utext="${message}" style="color: red;"></h1>
 </body>
 </html>

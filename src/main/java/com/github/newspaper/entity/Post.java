@@ -20,6 +20,9 @@ public class Post {
     private String content;
 
     @NotNull
+    private boolean isApproves = false;
+
+    @NotNull
     private String headLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,7 +33,7 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    private Date createdAt;
+    private Date date;
 
     public Post() {
     }
@@ -69,6 +72,22 @@ public class Post {
 
     @PrePersist
     void createAt() {
-        this.createdAt = new Date();
+        this.date = new Date();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isApproved() {
+        return isApproves;
+    }
+
+    public void setApproved(boolean approves) {
+        isApproves = approves;
     }
 }

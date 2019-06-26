@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+<h1>ADMIN PAGE</h1>
+<td>
+    <table>
+        <tbody>
+        <tr th:each="user : ${}">
+            <td th:text="${rowStat.count}">1</td>
+            <td th:text="${row.variety.name}">Thymus Thymi</td>
+            <td th:text="${row.seedsPerCell}">12</td>
+        </tr>
+        </tbody>
+    </table>
+</td>
+</body>
+</html>

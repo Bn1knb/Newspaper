@@ -2,7 +2,6 @@ package com.github.newspaper.service;
 
 import com.github.newspaper.dto.UserRegistrationDto;
 import com.github.newspaper.entity.User;
-import com.github.newspaper.security.Role;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
