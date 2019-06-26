@@ -20,7 +20,7 @@ public class Post {
     private String content;
 
     @NotNull
-    private boolean isApproves = false;
+    private boolean isApproved = false;
 
     @NotNull
     private String headLine;
@@ -84,10 +84,10 @@ public class Post {
     }
 
     public boolean isApproved() {
-        return isApproves;
+        return isApproved;
     }
 
     public void setApproved(boolean approves) {
-        isApproves = approves;
+        isApproved = approves;
     }
 }

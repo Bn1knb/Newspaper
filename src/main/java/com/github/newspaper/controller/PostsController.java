@@ -65,8 +65,6 @@ public class PostsController {
             bindingResult.rejectValue("body", "error.post", "Content cannot be empty");
         }
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         if (!bindingResult.hasErrors()) {
             post.setUser(currentUser);
             this.postService.post(post);

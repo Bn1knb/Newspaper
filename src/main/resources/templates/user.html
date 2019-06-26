@@ -7,6 +7,39 @@
 </head>
 <body>
 <h1> User page</h1>
-<h2>Welcome: <span th:utext="${#request.userPrincipal.name}"></span> </h2>
+<h2>Welcome: <span th:utext="${user.username}"></span></h2>
+<h3>Your Posted news:</h3> </br>
+
+<td>
+    <table>
+        <tbody>
+        <tr th:each="p : ${posts}">
+            <td>
+                <span th:text="${p.date}"></span>
+            </td>
+            <td>
+                <input type="checkbox"
+                       th:field="*{posts}"
+                       th:value="${p.id}">
+                <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+            </td>
+            <td>
+                <div th:if="${p.isApproved()}">
+                    <div>approved</div>
+                </div>
+                <div th:unless="${p.isApproved()}">
+                    <div>not approved yet</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</td>
+<span th:if="${posts != null}"><button type="submit" name="delete" th:name="delete">delete</button></span>
+
+<!--<a href="#" th:each="p : ${posts}" th:text="${p.headLine}" th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+<button type="submit" name="addRow">delete</button>-->
+
+<p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
 </body>
 </html>
