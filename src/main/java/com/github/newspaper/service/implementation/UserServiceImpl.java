@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 //TODO add getters for data and other stuff
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.addRole("USER");
+        user.addRole("ADMIN");
         userRepository.save(user);
     }
 
@@ -73,6 +74,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void disable(User user) {
         user.setEnabled(false);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(userRepository.findUserById(id));
     }
 
     @Override

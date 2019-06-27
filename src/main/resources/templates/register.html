@@ -13,7 +13,7 @@
         <input type="text" th:field="*{username}"><br/>
         <span class="validationError"
               th:if="${#fields.hasErrors('username')}"
-              th:errors="*{username}">
+              th:errors="*{username}"  style="color: red;">
             Incorrect username
         </span>
         <br/><br/>
@@ -23,7 +23,7 @@
         <input type="text" th:field="*{email}"><br/>
         <span class="validationError"
               th:if="${#fields.hasErrors('email')}"
-              th:errors="*{email}">
+              th:errors="*{email}"  style="color: red;">
             Incorrect email
         </span>
         <p  th:if="${emailError != null}" th:utext="${emailError}" style="color: red;"></p>
@@ -33,7 +33,7 @@
         <input type="password" th:field="*{password}"><br/>
         <span class="validationError"
               th:if="${#fields.hasErrors('password')}"
-              th:errors="*{password}">
+              th:errors="*{password}"  style="color: red;">
             Incorrect password
         </span>
         <br/><br/>

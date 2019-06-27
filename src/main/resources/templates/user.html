@@ -7,25 +7,24 @@
 </head>
 <body>
 <h1> User page</h1>
-<h2>Welcome: <span th:utext="${user?.username}"></span></h2>
+<h2>Welcome: <span th:utext="${user.username}"></span></h2>
 <h3>Your Posted news:</h3> </br>
 
 <form method="post" th:object="${user}" th:action="@{/user}" >
     <td>
         <table>
             <tbody>
-            <tr th:each="p : ${posts}">
-                <td>
-                    <span th:text="${p.date}"></span>
-                </td>
+            <tr th:each="p : ${allPosts}">
                 <td>
                     <input type="checkbox"
-                           name="postsboxes"
                            th:field="*{posts}"
                            th:value="${p.id}">
                     <label>
                         <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
                     </label>
+                </td>
+                <td>
+                    <span th:text="${p.date}"></span>
                 </td>
                 <td>
                     <div th:if="${p.isApproved()}">
@@ -35,12 +34,13 @@
                         <div>not approved yet</div>
                     </div>
                 </td>
+                <td>
+                    <a th:href="@{/posts/delete/{id}/(id=${p.id})}">delete</a>
+                </td>
             </tr>
             </tbody>
         </table>
     </td>
-
-    <span th:if="${posts != null}"><button type="submit" name="delete" th:name="delete">delete</button></span>
 </form>
 
 

@@ -1,7 +1,6 @@
 package com.github.newspaper.security.controller;
 
 import com.github.newspaper.dto.UserRegistrationDto;
-import com.github.newspaper.entity.User;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,16 +26,15 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(@Valid @ModelAttribute("userDto") UserRegistrationDto userDto,
-                           BindingResult bindingResult, Model model) {
+    public String register(@ModelAttribute("userDto") @Valid UserRegistrationDto userDto, BindingResult bindingResult) {
 
-        User existing = userService.findUserByEmail(userDto.getEmail());
+        //User existing = userService.findUserByEmail(userDto.getEmail());
 
-        if (existing != null) {
+        /*if (existing != null) {
 
-            model.addAttribute("emailError", "Email exists");
+            model.addAttribute("emailError", "user with this email already exists");
             return "register";
-        }
+        }*/
         if (bindingResult.hasErrors()) {
             return "register";
         }

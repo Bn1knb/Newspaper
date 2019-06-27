@@ -96,4 +96,12 @@ public class User {
     public void addRole(String role) {
         this.role = "ROLE_" + role;
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 }

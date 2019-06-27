@@ -7,17 +7,16 @@ import javax.validation.constraints.Size;
 
 public class UserRegistrationDto {
 
-    @NotNull
+
     @Size(min = 3, message = "Username must contain at leas 3 characters")
     @Size(max = 15, message = "Username is too long")
     private String username;
 
-    @NotNull
+
     @NotBlank(message = "Email is required")
     @Email(message = "invalid email")
     private String email;
 
-    @NotNull
     @Size(min = 6, message = "Password must contain at least 6 characters")
     @Size(max = 30, message = "Password is too long")
     private String password;
