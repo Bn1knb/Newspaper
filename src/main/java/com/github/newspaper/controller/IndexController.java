@@ -20,6 +20,7 @@ public class IndexController {
     public String index(Model model, Principal principal) {
 
         model.addAttribute("user", userService.findByUsername(principal.getName()));
+
         return "index";
     }
 }
