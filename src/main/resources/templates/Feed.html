@@ -4,12 +4,13 @@
 </head>
 <body>
 <header>
-    <a href="/post/create">Post news</a>
-    <div th:switch="${user.getRole()}">
-    <p th:case="'ROLE_USER'"><a href="user">Userpage</a> </p>
-    <p th:case="'ROLE_ADMIN'"><a href="admin">Adminpage</a> </p>
-    <p th:case="'ROLE_MODERATOR'"><a href="moderator">ModeratorPage</a></p>
-</div></a>
+    <th:block th:switch="${user.getRole()}">
+        <a href="/posts/create">Post news</a>
+        <a th:case="'ROLE_USER'" href="user">Userpage</a>
+        <a th:case="'ROLE_ADMIN'" href="admin">Adminpage</a>
+        <a th:case="'ROLE_MODERATOR'" href="moderator">ModeratorPage</a>
+        <a href="/index">About</a>
+    </th:block>
 </header>
 
 <aside>
@@ -30,13 +31,13 @@
 <main id="posts">
     <p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
     <article th:each="p : ${latest3Posts}">
-        <h2 class="title" th:text="${p.headLine}">headline</h2>
+        <h3 class="title" th:text="${p.headLine}">headline</h3>
         <div class="date">
             <i>Posted on</i>
             <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
             <span th:if="${p.user}" th:remove="tag">
 	          <i>by</i>
-	          <span th:text="${p.user.username != null ? p.user.username : p.user.username}">username</span>
+                <span> <a th:text="${p.user.username}" th:href="@{/users/{username}/(username=${p.user.username})}">username</a></span>
 	        </span>
         </div>
         <p class="content" th:utext="${p.content}">Post content</p>

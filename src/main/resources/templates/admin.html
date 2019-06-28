@@ -6,6 +6,11 @@
     <title>User Page</title>
 </head>
 <body>
+<header>
+    <a href="/feed">Feed</a>
+    <a href="/posts/create">Post news</a>
+    <a href="/index">About</a>
+</header>
 <h1> Admin page</h1>
 <h2>Welcome: <span th:utext="${user.username}"></span></h2>
 <h3>List of users:</h3> </br>
@@ -16,47 +21,32 @@
             <tbody>
             <tr th:each="u : ${allUsers}">
                 <td>
-                    <input type="checkbox"
-                           th:field="${allUsers}"
-                           th:value="${u.id}"
-                           th:text="${u.username}"/>
-
-                </td>
-                <td>
                     <span th:text="${u.getCreatedAt()}"></span>
                 </td>
                 <td>
+                    <span th:text="${u.role}"></span>
+                </td>
+                <td>
+                    <span> <a th:text="${u.username}" th:href="@{/users/{username}/(username=${u.username})}"></a></span>
+                </td>
+                <td>
                     <div th:if="${u.isEnabled()}">
-                        <div>approved</div>
+                        <div>enabled</div>
                     </div>
                     <div th:unless="${u.isEnabled()}">
-                        <div>not approved yet</div>
+                        <div>not enabled yet</div>
                     </div>
                 </td>
                 <td>
-                    <select th:field="${role}">
-                        <option th:value="USER"
-                                text="USER">
-                            USER
-                        </option>
-                        <option th:value="ADMIN"
-                                text="ADMIN">
-                            ADMIN
-                        </option>
-                        <option th:value="MODERATOR"
-                                text="MODERATOR">
-                            MODERATOR
-                        </option>
-                    </select>
+                    <a th:href="@{/users/delete/{id}/(id=${u.id})}">delete</a>
+                </td>
+                <td>
+                    <a th:href="@{/users/enable/{id}/(id=${u.id})}">enable</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </td>
-
-    <span th:if="${allUsers != null}"><button type="submit" name="delete" th:name="delete">delete</button></span>
-    <span th:if="${allUsers != null}"><button type="submit" name="approve" th:name="approve">approve</button></span>
-    <span th:if="${allUsers != null}"><button type="submit" name="setRoles" th:name="setRoles">set roles</button></span>
 </form>
 
 

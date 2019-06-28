@@ -93,7 +93,7 @@ public class User {
         return role;
     }
 
-    public void addRole(String role) {
+    public void setRole(String role) {
         this.role = "ROLE_" + role;
     }
 

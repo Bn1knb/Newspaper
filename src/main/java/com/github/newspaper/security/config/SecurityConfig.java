@@ -30,14 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {  //TODO add oauth to other pages
-        http
+        http  //TODO add security to /users/delete and /users/approve to make users can see each other
                 .authorizeRequests()
                     .antMatchers("/admin/**")
                         .hasRole("ADMIN")
-                    .antMatchers("/user/**")
-                        .hasRole("USER")
+                    .antMatchers("/users/**")
+                        .hasRole("ADMIN")
+                    .antMatchers("/user")
+                        .hasAnyRole("USER","ADMIN","MODERATOR")
                     .antMatchers("/moderator/**")
                         .hasRole("MODERATOR")
+                    .antMatchers("/post/**")
+                        .hasAnyRole("ADMIN", "MODERATOR")
                     .antMatchers("/register")
                         .permitAll()
                     .antMatchers("/index")
@@ -46,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers("/feed")
                         .authenticated()
-                    .antMatchers("/post/**")
+                    .antMatchers("/posts/**")
                         .authenticated()
                 .and()
                     .exceptionHandling()

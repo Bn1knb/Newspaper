@@ -20,7 +20,7 @@ public class Post {
     private String content;
 
     @NotNull
-    private boolean isApproved = false;
+    private boolean isApproved;
 
     @NotNull
     private String headLine;

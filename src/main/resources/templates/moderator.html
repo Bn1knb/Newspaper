@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Moderator Page</title>
 </head>
 <body>
+<header>
+    <a href="/feed">Feed</a>
+    <a href="/posts/create">Post news</a>
+    <a href="/index">About</a>
+</header>
 <h1> MODERATOR PAGE</h1>
+<h2>Welcome: <span th:utext="${user.username}"></span></h2>
+<h3>All Posted news:</h3> </br>
+
+<form method="post" th:object="${user}" th:action="@{/user}" >
+    <td>
+        <table>
+            <tbody>
+            <tr th:each="p : ${allPosts}">
+                <td>
+                    <a th:text="${p.headLine}  "
+                       th:href="@{/posts/view/{id}/(id=${p.id})}">
+                    </a>
+                </td>
+                <td>
+                    <span th:text="${p.date}"></span>
+                </td>
+                <td>
+                    <div th:if="${p.isApproved()}">
+                        <div>approved</div>
+                    </div>
+                    <div th:unless="${p.isApproved()}">
+                        <div>not approved yet</div>
+                    </div>
+                </td>
+                <td>
+                    <a th:href="@{/post/delete/{id}/(id=${p.id})}">delete</a>
+                </td>
+                <td>
+                    <a th:href="@{/post/approve/{id}/(id=${p.id})}">approve</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</form>
 </body>
 </html>

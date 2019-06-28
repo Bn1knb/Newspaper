@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:sec="http://www.thymeleaf.org"
+                xmlns:th="http://www.thymeleaf.org"
                 xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>main page</title>
 </head>
 <body>
-<h1>Main page</h1>
-<p> <a href="login">Login</a> to see news </p>
-<p>or <a href="register">Register</a> </p>
+<header>
+    <div sec:authorize="isAuthenticated()">
+
+        <th:block th:switch="${user.getRole()}">
+            <a href="/feed">Feed</a>
+            <a href="/posts/create">Post news</a>
+            <a th:case="'ROLE_USER'" href="user">Userpage</a>
+            <a th:case="'ROLE_ADMIN'" href="admin">Adminpage</a>
+            <a th:case="'ROLE_MODERATOR'" href="moderator">ModeratorPage</a>
+        </th:block>
+    </div>
+</header>
+<h1>info page</h1>
+<h2>Some info here</h2>
+<!-- thing below doesnt really work-->
+<div sec:authorize="!isAuthenticated()">
+    <p> <a href="login">Login</a> to see news </p>
+    <p>or <a href="register">Register</a> </p>
+</div>
 </body>
 </html>

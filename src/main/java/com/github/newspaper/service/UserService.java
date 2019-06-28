@@ -12,7 +12,7 @@ public interface UserService extends UserDetailsService {
 
     boolean isEnabled(User user);
 
-    void addRole(User user, String role);
+    void setRole(User user, String role);
 
     void save(UserRegistrationDto userDto);
 
@@ -27,4 +27,6 @@ public interface UserService extends UserDetailsService {
     List<User> findAll();
 
     void delete(Long id);
+
+    User findById(Long id);
 }

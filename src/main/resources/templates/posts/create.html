@@ -7,12 +7,13 @@
 
 <body>
 <header>
-    <a href="/post/create">Post news</a>
-    <div th:switch="${user.getRole()}">
-        <p th:case="'ROLE_USER'"><a href="/user">Userpage</a> </p>
-        <p th:case="'ROLE_ADMIN'"><a href="/admin">Adminpage</a> </p>
-        <p th:case="'ROLE_MODERATOR'"><a href="/moderator">ModeratorPage</a></p>
-    </div></a>
+    <th:block th:switch="${user.getRole()}">
+        <a href="/feed">Feed</a>
+        <a th:case="'ROLE_USER'" href="user">Userpage</a>
+        <a th:case="'ROLE_ADMIN'" href="admin">Adminpage</a>
+        <a th:case="'ROLE_MODERATOR'" href="moderator">ModeratorPage</a>
+        <a href="/index">About</a>
+    </th:block>
 </header>
 
 <h2>Add some news</h2>

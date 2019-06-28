@@ -6,6 +6,16 @@
     <title>Error</title>
 </head>
 <body>
+<header>
+    <th:block th:switch="${user.getRole()}">
+        <a href="/feed">Feed</a>
+        <a href="/posts/create">Post news</a>
+        <a th:case="'ROLE_USER'" href="user">Userpage</a>
+        <a th:case="'ROLE_ADMIN'" href="admin">Adminpage</a>
+        <a th:case="'ROLE_MODERATOR'" href="moderator">ModeratorPage</a>
+        <a href="/index">About</a>
+    </th:block>
+</header>
 <h1>Error 403</h1>
     <h1 th:if="${message != null}" th:utext="${message}" style="color: red;"></h1>
 </body>

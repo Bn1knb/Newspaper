@@ -12,8 +12,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
 
-    @Override
-    Iterable<Post> findAll();
+    List<Post> findAll();
 
     List<Post> findAllByUserOrderByDate(User user);
 
@@ -23,6 +22,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 
     //Iterable<Post> findAllOrderByComments(); //TODO idk this need to be done smhow
 
-    @Query(value = "SELECT p.* FROM post p ORDER BY p.date DESC", nativeQuery = true)
-    List<Post> findLates5Posts(Pageable pageable);
+    @Query(value = "SELECT p.* FROM post p WHERE p.is_approved = TRUE ORDER BY p.date DESC", nativeQuery = true)
+    List<Post> findLatest5ApprovedPosts(Pageable pageable);
 }

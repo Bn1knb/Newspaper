@@ -1,18 +1,15 @@
 package com.github.newspaper.controller;
 
 import com.github.newspaper.entity.User;
-import com.github.newspaper.security.Role;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -26,8 +23,6 @@ public class AdminPageController {
 
         User loggedinUser = userService.findByUsername(principal.getName());
         List<User> allUsers = userService.findAll();
-        String role = "USER";
-        //List<String> roles = Arra(Role.values().toString());
 
         if (allUsers == null) {
 
@@ -36,47 +31,36 @@ public class AdminPageController {
             return "admin";
         }
 
-        //model.addAttribute("roles", roles);
-        model.addAttribute("role", role);
         model.addAttribute("user", loggedinUser);
         model.addAttribute("allUsers", allUsers);
         return "admin";
     }
 
-    /*@RequestMapping(method = RequestMethod.POST, value = "/admin", params = {"approve"})
-    public String approve(@ModelAttribute("allUsers") List<User> selected, Model model, Principal principal) {
+    @RequestMapping("/users/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
 
-        if (selected != null) {
-            for (User user : selected) {
-                userService.enable(user);
-            }
-        } else {
-            model.addAttribute("Error", "No user selected");
-        }
-        User loggedinUser = userService.findByUsername(principal.getName());
-        model.addAttribute("user", loggedinUser);
-        List<User> allUsers = userService.findAll();
-        model.addAttribute("allUsers", allUsers);
 
-        return "admin";
+        userService.delete(id);
+        return "redirect:/admin";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/admin", params = {"setRoles"})
-    public String setRole(@ModelAttribute("allUsers") List<User> selected, Model model, Principal principal) {
+    @RequestMapping("/users/enable/{id}")
+    public String enable(@PathVariable("id") Long id) {
 
-        if (selected != null) {
-            for (User user : selected) {
 
-            }
-        } else {
-            model.addAttribute("Error", "No user selected");
-        }
+        userService.enable(userService.findById(id));
+        return "redirect:/admin";
+    }
 
-        User loggedinUser = userService.findByUsername(principal.getName());
-        model.addAttribute("user", loggedinUser);
-        List<User> allUsers = userService.findAll();
-        model.addAttribute("allUsers", allUsers);
+    @RequestMapping("/users/makeadmin/{username}")
+    public String setAsAdmin(@PathVariable("username") String username) {
+        userService.setRole(userService.findByUsername(username),"ADMIN");
+        return "redirect:/users/"+username;
+    }
 
-        return "admin";
-    }*/
+    @RequestMapping("/users/makemoderator/{username}")
+    public String setAsModerator(@PathVariable("username") String username) {
+        userService.setRole(userService.findByUsername(username),"MODERATOR");
+        return "redirect:/users/"+username;
+    }
 }

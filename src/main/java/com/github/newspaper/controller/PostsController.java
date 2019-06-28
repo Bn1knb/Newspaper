@@ -27,21 +27,28 @@ public class PostsController {
     UserService userService;
 
     @RequestMapping("/posts/view/{id}")
-    public String view(@PathVariable("id") Long id, Model model) {
+    public String view(@PathVariable("id") Long id, Model model, Principal principal) {
 
         Post post = this.postService.findById(id);
         if (post == null) {
             return "redirect:/";
         }
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("post", post);
         return "posts/view";
     }
 
-    @RequestMapping("/post/create")
+    @RequestMapping("/posts/create")
     public ModelAndView create(Principal principal) {
 
         User currentUser = userService.findByUsername(principal.getName());
         ModelAndView modelAndView = new ModelAndView();
+
+        if (!currentUser.isEnabled()) {
+            modelAndView.setViewName("redirect:errors/userNotApprovedYet");
+            return  modelAndView;
+        }
+
         Post post = new Post();
         modelAndView.addObject(currentUser);
         modelAndView.addObject(post);

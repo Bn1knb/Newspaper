@@ -28,6 +28,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void approve(Post post) {
         post.setApproved(true);
+        postRepository.save(post);
     }
 
     @Override
@@ -57,12 +58,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    @Override
     public Post findById(Long id) {
         return postRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Post> findLatest5() {
-        return postRepository.findLates5Posts(PageRequest.of(0, 5));
+        return postRepository.findLatest5ApprovedPosts(PageRequest.of(0, 5));
     }
 }

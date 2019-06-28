@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     //TODO change role in user to string not collection and covert to collection here note: used for custom redirect
 
     @Override
-    public void addRole(User user, String role) {
+    public void setRole(User user, String role) {
 
-        user.addRole(role);
+        user.setRole(role);
         userRepository.save(user);
     }
 
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.addRole("ADMIN");
+        user.setRole("USER");
         userRepository.save(user);
     }
 
@@ -69,11 +69,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void enable(User user) {
         user.setEnabled(true);
+        userRepository.save(user);
     }
 
     @Override
     public void disable(User user) {
         user.setEnabled(false);
+        userRepository.save(user);
     }
 
     @Override
@@ -84,6 +86,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userRepository.delete(userRepository.findUserById(id));
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findUserById(id);
     }
 
     @Override

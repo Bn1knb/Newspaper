@@ -23,6 +23,8 @@ public interface PostService {
 
     List<Post> findAllPostsOfUser(User user);
 
+    List<Post> findAll();
+
     Post findById(Long id);
 
     List<Post> findLatest5();
