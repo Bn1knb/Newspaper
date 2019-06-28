@@ -54,13 +54,13 @@ public class AdminPageController {
 
     @RequestMapping("/users/makeadmin/{username}")
     public String setAsAdmin(@PathVariable("username") String username) {
-        userService.setRole(userService.findByUsername(username),"ADMIN");
-        return "redirect:/users/"+username;
+        userService.setRole(userService.findByUsername(username), "ADMIN");
+        return "redirect:/users/" + username;
     }
 
     @RequestMapping("/users/makemoderator/{username}")
     public String setAsModerator(@PathVariable("username") String username) {
-        userService.setRole(userService.findByUsername(username),"MODERATOR");
-        return "redirect:/users/"+username;
+        userService.setRole(userService.findByUsername(username), "MODERATOR");
+        return "redirect:/users/" + username;
     }
 }
