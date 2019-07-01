@@ -9,7 +9,7 @@
 
 <body>
 <header>
-    <th:block th:switch="${user.getRole()}">
+    <th:block th:switch="${currentUser.getRole()}">
         <a href="/feed">Feed</a>
         <a href="/posts/create">Post news</a>
         <a th:case="'ROLE_USER'" href="/user">Userpage</a>

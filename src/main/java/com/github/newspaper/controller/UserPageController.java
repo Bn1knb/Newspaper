@@ -51,13 +51,15 @@ public class UserPageController {
     }
 
     @RequestMapping("/users/{username}")
-    public String view(@PathVariable("username") String username, Model model) {
+    public String view(@PathVariable("username") String username, Model model, Principal principal) {
 
+        User currentUser = userService.findByUsername(principal.getName());
         User user = userService.findByUsername(username);
         List<Post> allPosts = postService.findAllPostsOfUser(user);
         if (user == null) {
             return "redirect:/";
         }
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("roleAdmin", "ADMIN");
         model.addAttribute("roleModerator", "MODERATOR");
         model.addAttribute("allPosts", allPosts);

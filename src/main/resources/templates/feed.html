@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>main page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
+
+        <th:block th:switch="${user.getRole()}">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
+                <a class="navbar-brand" href="/index">
+                    <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+                </a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Feed">Feed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts/create">Post news</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
+                        <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+                        <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                    </li>
+                </ul>
+            </div>
+        </th:block>
+
+    </nav>
+
+
+
+<div class="container-fluid">
+    <div class="jumbotron p-5 text-white p-md-5 rounded" th:style="'background-image:url(' + @{images/header.jpg} + ');'">
+        <div >
+            <div class="col-md-6 px-0">
+                <h1 style="background: dodgerblue">Read news. </br> Post news.</h1>
+            </div>
+        </div>
+    </div>
+</div>
+    <p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
+
+<main id="posts" role="main" class="container">
+    <div class="row">
+        <aside class="col-md-4 blog-sidebar">
+            <h2>Recent Posts</h2>
+            <td>
+                <table>
+                    <tbody>
+                    <tr th:each="p : ${latest5Posts}">
+                        <td>
+                            <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </aside>
+        <div class="col-md-8 blog-main">
+            <div class="blog-post">
+                <article th:each="p : ${latest3Posts}">
+                    <h3 class="blog-post-title" th:text="${p.headLine}">headline</h3>
+                    <div class="date blog-post-meta">
+                        <i>Posted on</i>
+                        <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
+                        <span th:if="${p.user}" th:remove="tag">
+	          <i>by</i>
+                <span> <a th:text="${p.user.username}" th:href="@{/users/{username}/(username=${p.user.username})}">username</a></span>
+	        </span>
+                    </div>
+                    <p class="content" th:utext="${p.content}">Post content</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="page-footer font-small blue pt-4 footer">
+    <div class="sticky-bottom">
+        <div class="footer-copyright text-center py-3">Created with love 2019 Github:
+            <a href="https://www.github/bn1knb/newspaper"> Bn1knB</a>
+        </div>
+    </div>
+</footer>
+
+<!-- bootstrap thing -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
