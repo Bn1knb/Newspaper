@@ -2,7 +2,7 @@ package com.github.newspaper.service.implementation;
 
 import com.github.newspaper.dao.UserRepository;
 import com.github.newspaper.dto.UserRegistrationDto;
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.User;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

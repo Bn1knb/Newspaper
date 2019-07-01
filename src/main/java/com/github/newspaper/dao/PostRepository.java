@@ -1,7 +1,7 @@
 package com.github.newspaper.dao;
 
-import com.github.newspaper.entity.Post;
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.Post;
+import com.github.newspaper.model.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -1,8 +1,8 @@
 package com.github.newspaper.service.implementation;
 
 import com.github.newspaper.dao.PostRepository;
-import com.github.newspaper.entity.Post;
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.Post;
+import com.github.newspaper.model.User;
 import com.github.newspaper.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

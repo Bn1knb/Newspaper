@@ -1,4 +1,4 @@
-package com.github.newspaper.entity;
+package com.github.newspaper.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

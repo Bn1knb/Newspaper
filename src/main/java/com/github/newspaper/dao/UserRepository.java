@@ -1,6 +1,6 @@
 package com.github.newspaper.dao;
 
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

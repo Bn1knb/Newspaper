@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {  //TODO add oauth to other pages
         http  //TODO add security to /users/delete and /users/approve to make users can see each other
                 .authorizeRequests()
+
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
                 .antMatchers("/users/**")
@@ -62,12 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).defaultSuccessUrl("/feed", true);//.successHandler(//TODO custom sucsess handler);
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**");
-    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

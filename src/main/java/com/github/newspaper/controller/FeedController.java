@@ -1,7 +1,7 @@
 package com.github.newspaper.controller;
 
-import com.github.newspaper.entity.Post;
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.Post;
+import com.github.newspaper.model.User;
 import com.github.newspaper.service.PostService;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

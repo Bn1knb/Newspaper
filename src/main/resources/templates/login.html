@@ -1,51 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>main page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Sign In</title>
 </head>
 <body class="text-center">
-    <h1>Sign in page</h1>
-    <form class="form-signin text-center border border-light p-5" th:action="@{/login}" method="post">
+<div class="container pt-3">
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-6 col-md-4">
+            <div class="card border-info test-center">
+                <div class="card-header">
+                    Sign in
+                </div>
+                <div class="card-body">
+                    <img th:src="@{/resources/static/images/logo.png}" width="150" height="150"/>
+                    <h4 class="text-center">News come first</h4>
+                    <br/>
+                    <form class="form-signin" th:action="@{/login}" method="post">
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-control mb-2"
+                               placeholder="Username"
+                               autofocus required>
 
-        <img class="mb-4" src="/static/images/logo.svg" width="72" height="72" alt="logo">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-control mb-2"
+                               placeholder="Password"
+                               required>
 
-        <label class="sr-only" for="username">Username</label>
-        <input type="text"
-               id="username"
-               name="username"
-               class="form-control"
-               autofocus="autofocus"
-               placeholder="Username">
-        <br/>
-        <br/>
+                        <button class="btn btn-lg btn-primary btn-block mb-1" id="login-submit" type="submit">Sing in
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <a href="/register" class="float-right">Create an account </a>
+        </div>
+    </div>
+</div>
 
-        <label class="sr-only" for="password">Password</label>
-        <input type="password"
-               id="password"
-               name="password"
-               class="form-control"
-               placeholder="Password">
-        <br/>
-        <br/>
+<footer class="page-footer font-small blue pt-4 footer">
+    <div class="fixed-bottom">
+        <div class="footer-copyright text-center py-3">Created with love 2019 Github:
+            <a href="https://www.github/bn1knb/newspaper"> Bn1knB</a>
+        </div>
+    </div>
+</footer>
 
-        <input class="btn btn-lg btn-primary btn-block" type="submit"
-               name="submit"
-               id="login-submit"
-               value="Log In">
-        <br/>
-        <p>or <a href="/register">register</a> </p>
-    </form>
-
-    <!-- bootstrap thing -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- bootstrap thing -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

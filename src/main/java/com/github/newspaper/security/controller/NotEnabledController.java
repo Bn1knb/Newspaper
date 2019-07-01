@@ -1,6 +1,6 @@
 package com.github.newspaper.security.controller;
 
-import com.github.newspaper.entity.User;
+import com.github.newspaper.model.User;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class NotEnabledController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/errors/userNotApprovedYet", method = RequestMethod.GET)
+    @RequestMapping(value = {"/errors/userNotApprovedYet", "posts/errors/userNotApprovedYet"}, method = RequestMethod.GET)
     public String notEnabled(Model model, Principal principal) {
         User loggedinUser = userService.findByUsername(principal.getName());
         model.addAttribute("user", loggedinUser);

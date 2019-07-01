@@ -12,9 +12,9 @@
     <th:block th:switch="${user.getRole()}">
         <a href="/feed">Feed</a>
         <a href="/posts/create">Post news</a>
-        <a th:case="'ROLE_USER'" href="user">Userpage</a>
-        <a th:case="'ROLE_ADMIN'" href="admin">Adminpage</a>
-        <a th:case="'ROLE_MODERATOR'" href="moderator">ModeratorPage</a>
+        <a th:case="'ROLE_USER'" href="/user">Userpage</a>
+        <a th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+        <a th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
         <a href="/index">About</a>
     </th:block>
 </header>

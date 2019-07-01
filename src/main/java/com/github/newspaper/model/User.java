@@ -1,4 +1,4 @@
-package com.github.newspaper.entity;
+package com.github.newspaper.model;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
