@@ -4,59 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>main page</title>
+    <title>Feed</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 </head>
-<body>
+<body style="background: whitesmoke">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
-
-        <th:block th:switch="${user.getRole()}">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
-                <a class="navbar-brand" href="/index">
-                    <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
-                </a>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/Feed">Feed</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts/create">Post news</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
-                        <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
-                        <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
-                    </li>
-                </ul>
-            </div>
-        </th:block>
-
-    </nav>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <th:block th:switch="${user.getRole()}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
+            <a class="navbar-brand" href="/index">
+                <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/feed">Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts/create">Post news</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
+                    <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+                    <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+</nav>
 
 
 <div class="container-fluid">
-    <div class="jumbotron p-5 text-white p-md-5 rounded" th:style="'background-image:url(' + @{images/header.jpg} + ');'">
-        <div >
+    <div class="jumbotron p-5 text-white p-md-5 rounded"
+         style="width: 100%;"
+         th:style="'background-image:url(' + @{images/header.png} + '); background-size:cover'">
+        <div>
             <div class="col-md-6 px-0">
-                <h1 style="background: dodgerblue">Read news. </br> Post news.</h1>
+                <h1 style="background: #000000; width: 230px; font-family: 'Times New Roman'">Read news.</h1>
+                <h1 style="background: #000000; width:40%; font-family: 'Times New Roman'">Post news.</h1>
             </div>
         </div>
     </div>
 </div>
-    <p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
+<p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
 
-<main id="posts" role="main" class="container">
+<main id="posts" role="main" class="container-fluid">
     <div class="row">
-        <aside class="col-md-4 blog-sidebar">
+        <aside class="col-md-2 col-3 blog-sidebar">
             <h2>Recent Posts</h2>
             <td>
                 <table>
@@ -70,7 +68,7 @@
                 </table>
             </td>
         </aside>
-        <div class="col-md-8 blog-main">
+        <div class="col-md-8 col-12 blog-main">
             <div class="blog-post">
                 <article th:each="p : ${latest3Posts}">
                     <h3 class="blog-post-title" th:text="${p.headLine}">headline</h3>

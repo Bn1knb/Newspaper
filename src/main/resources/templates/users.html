@@ -5,19 +5,40 @@
 
 <head>
     <title th:text="${user.username}">View user</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 </head>
 
-<body>
-<header>
+<body style="background: whitesmoke" class="text-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <th:block th:switch="${currentUser.getRole()}">
-        <a href="/feed">Feed</a>
-        <a href="/posts/create">Post news</a>
-        <a th:case="'ROLE_USER'" href="/user">Userpage</a>
-        <a th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
-        <a th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
-        <a href="/index">About</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
+            <a class="navbar-brand" href="/index">
+                <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed">Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts/create">Post news</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
+                    <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+                    <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+        </div>
     </th:block>
-</header>
+</nav>
 
 <main id="users">
     <article>

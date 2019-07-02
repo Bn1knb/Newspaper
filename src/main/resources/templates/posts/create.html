@@ -2,41 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit Post</title>
+    <title>Post</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 </head>
 
-<body>
-<header>
+<body class="text-center" style="background: whitesmoke">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
     <th:block th:switch="${user.getRole()}">
-        <a href="/feed">Feed</a>
-        <a th:case="'ROLE_USER'" href="/user">Userpage</a>
-        <a th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
-        <a th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
-        <a href="/index">About</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
+            <a class="navbar-brand" href="/index">
+                <img src="../../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed">Feed</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/posts/create">Post news</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
+                    <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+                    <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+        </div>
     </th:block>
-</header>
+</nav>
 
-<h2>Add some news</h2>
+<div class="container-fluid">
+    <form th:action="@{/posts/create}" th:object="${post}" method="post">
+    <div class="row justify-content-sm-center">
+        <div class="col">
 
-<div class="container row">
-    <form action="#" th:action="@{/posts/create}" th:object="${post}" method="post" class="form col-md-5 col-md-offset-7">
-        <div class="form-group">
-            <label>HeadLine</label>
-            <br/>
-            <input type="text" th:field="*{headLine}" th:class="${#fields.hasErrors('headLine') ? 'form-control is-invalid' : 'form-control'}" />
+        </div>
+        <div class="col-6">
+            <h2>Add some news</h2>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="col">
+
+        </div>
+        <div class="col-6">
+            <label>HeadLine</label><br/>
+            <input style="width: 800px" placeholder="Write headline here..." type="text" th:field="*{headLine}" th:class="${#fields.hasErrors('headLine') ? 'form-control is-invalid' : 'form-control'}" />
             <div th:if="${#fields.hasErrors('headLine')}" th:errors="*{headLine}" class="invalid-feedback"></div>
-            <br/>
-        </div><!-- Post Title -->
-        <div class="form-group">
-            <label>Content</label>
-            <br/>
-            <textarea rows="5" cols="" th:field="*{content}" th:class="${#fields.hasErrors('content') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
-            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></div>
-            <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="invalid-feedback"></div>
-        </div><!-- Post Content -->
-        <div class="form-group clearfix">
-            <button type="submit" class="btn btn-primary float-right">Create Post</button>
-        </div><!-- Submit Button -->
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+        <div class="row justify-content-sm-center">
+            <div class="col">
+
+            </div>
+            <div  class="col-6 clearfix">
+                <label>Content</label>
+                <br/>
+                <textarea style="width: 800px" rows="10" placeholder="Write content here..." cols="" th:field="*{content}" th:class="${#fields.hasErrors('content') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
+                <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></div>
+                <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="invalid-feedback"></div>
+                <button type="submit" class="btn btn-primary float-bottom">Create Post</button>
+            </div >
+            <div class="col">
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
         <div class="form-group">
             <div th:class="${successMessage} ? 'alert alert-success' : ''" th:text="${successMessage}"></div>
         </div>

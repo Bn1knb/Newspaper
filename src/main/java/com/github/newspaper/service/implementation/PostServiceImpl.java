@@ -69,6 +69,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findLatest5() {
-        return postRepository.findLatest5ApprovedPosts(PageRequest.of(0, 5));
+        return postRepository.findLatest5ApprovedPosts(PageRequest.of(0, 10));
     }
 }

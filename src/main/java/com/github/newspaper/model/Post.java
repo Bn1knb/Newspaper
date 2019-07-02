@@ -17,7 +17,6 @@ public class Post {
     private Long id;
 
     @NotNull
-    @Lob
     private String content;
 
     @NotNull
