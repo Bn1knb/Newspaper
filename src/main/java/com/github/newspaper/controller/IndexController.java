@@ -2,6 +2,7 @@ package com.github.newspaper.controller;
 
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +14,20 @@ import java.security.Principal;
 @RequestMapping(value = {"/", "/index"})
 public class IndexController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public IndexController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
-    public String index(Model model, Principal principal) {
+    public String index(Model model, Principal principal, Authentication authentication) {
 
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
-
+        model.addAttribute("auth", authentication);
+        if (authentication != null) {
+            model.addAttribute("user", userService.findByUsername(principal.getName()));
+        }
         return "index";
     }
 }

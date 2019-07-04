@@ -35,6 +35,11 @@
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pull-right">Logout</a>
+                </li>
+            </ul>
         </div>
     </th:block>
 </nav>
@@ -55,7 +60,7 @@
             </td>
             <td>
                     <span> <a th:text="${u.username}  "
-                              th:href="@{/users/{username}/(username=${u.username})}"></a></span>
+                              th:href="@{/users/view/{username}/(username=${u.username})}"></a></span>
             </td>
             <td>
                 <div th:if="${u.isEnabled()}  ">

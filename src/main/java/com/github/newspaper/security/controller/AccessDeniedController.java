@@ -12,8 +12,12 @@ import java.security.Principal;
 @Controller
 public class AccessDeniedController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public AccessDeniedController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {

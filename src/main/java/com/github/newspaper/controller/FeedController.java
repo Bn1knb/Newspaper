@@ -16,10 +16,14 @@ import java.util.stream.Collectors;
 @Controller
 public class FeedController {
 
+    private final PostService postService;
+    private final UserService userService;
+
     @Autowired
-    PostService postService;
-    @Autowired
-    UserService userService;
+    public FeedController(UserService userService, PostService postService) {
+        this.userService = userService;
+        this.postService = postService;
+    }
 
     @RequestMapping("/feed")
     public String feed(Model model, Principal principal) {

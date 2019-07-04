@@ -17,17 +17,21 @@ import java.util.List;
 @Controller
 public class ModeratorController {
 
+    private final PostService postService;
+    private final UserService userService;
+
     @Autowired
-    PostService postService;
-    @Autowired
-    UserService userService;
+    public ModeratorController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/moderator", method = RequestMethod.GET)
     public String view(Model model, Principal principal) {
         User loggedinUser = userService.findByUsername(principal.getName());
         model.addAttribute("user", loggedinUser);
 
-        List<Post> userPosts = postService.findAll();
+        List<Post> userPosts = postService.findAllOrderByDate();
 
         if (userPosts == null) {
 

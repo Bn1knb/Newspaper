@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background: whitesmoke">
+<body style="background: whitesmoke" class="text-center">
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <th:block th:switch="${user.getRole()}">
+    <th:block th:switch="${user?.getRole()}">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,6 +33,13 @@
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
                 </li>
             </ul>
+            <div th:if="${auth == null}">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link pull-right">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </th:block>
 </nav>
@@ -41,8 +48,7 @@
 </header>
 <h1>info page</h1>
 <h2>Some info here</h2>
-<!-- thing below doesnt really work-->
-<div sec:authorize="!isAuthenticated()">
+<div th:if="${auth == null}">
     <p> <a href="login">Login</a> to see news </p>
     <p>or <a href="register">Register</a> </p>
 </div>

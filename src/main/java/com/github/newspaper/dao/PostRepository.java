@@ -12,9 +12,10 @@ import java.util.List;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
 
-    List<Post> findAll();
+    @Query(value = "SELECT p.* FROM post p ORDER BY p.date DESC", nativeQuery = true)
+    List<Post> findAllbyOrderByDateDesc();
 
-    List<Post> findAllByUserOrderByDate(User user);
+    List<Post> findAllByUserOrderByDateDesc(User user);
 
     Post findPostById(Long id);
 

@@ -19,10 +19,14 @@ import java.security.Principal;
 @Controller
 public class PostsController {
 
+    private final PostService postService;
+    private final UserService userService;
+
     @Autowired
-    PostService postService;
-    @Autowired
-    UserService userService;
+    public PostsController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+    }
 
     @RequestMapping("/posts/view/{id}")
     public String view(@PathVariable("id") Long id, Model model, Principal principal) {
@@ -63,16 +67,9 @@ public class PostsController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("posts/create");
 
-        if (post.getHeadLine().isEmpty()) {
-            bindingResult.rejectValue("title", "error.post", "Title cannot be empty");
-        }
-        if (post.getContent().isEmpty()) {
-            bindingResult.rejectValue("body", "error.post", "Content cannot be empty");
-        }
-
         if (!bindingResult.hasErrors()) {
             post.setUser(currentUser);
-            this.postService.post(post);
+            postService.post(post);
             modelAndView.addObject("successMessage", "Post has been created");
             modelAndView.addObject("post", new Post());
         }

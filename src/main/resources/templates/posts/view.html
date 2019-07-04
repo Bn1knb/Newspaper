@@ -21,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
             <a class="navbar-brand" href="/index">
-                <img src="../../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+                <img th:src="@{~/images/logo.png}" width="30" height="30" alt="logo">
             </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -34,6 +34,11 @@
                     <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
                     <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pull-right">Logout</a>
                 </li>
             </ul>
         </div>

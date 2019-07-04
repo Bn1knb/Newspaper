@@ -21,10 +21,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public boolean isEnabled(User user) {
@@ -53,7 +57,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String userName) {
-        return userRepository.findUserByUsername(userName);
+        return userRepository
+                .findUserByUsername(userName)
+                .orElseThrow(() -> new UsernameNotFoundException("No such username"));
     }
 
     @Override
@@ -84,6 +90,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllOrderByDate() {
+        return userRepository.findAllbyOrderByCreatedAtDesc();
+    }
+
+    @Override
     public void delete(Long id) {
         userRepository.delete(userRepository.findUserById(id));
     }
@@ -94,9 +105,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) {
 
-        User user = userRepository.findUserByUsername(userName);
+        User user = userRepository
+                .findUserByUsername(userName)
+                .orElseThrow(() -> new UsernameNotFoundException("No such username"));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

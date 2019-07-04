@@ -21,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
             <a class="navbar-brand" href="/index">
-                <img src="../../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+                <img th:src="@{~/images/logo.png}" width="30" height="30" alt="logo">
             </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -34,6 +34,11 @@
                     <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
                     <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pull-right">Logout</a>
                 </li>
             </ul>
         </div>
@@ -59,8 +64,17 @@
         </div>
         <div class="col-6">
             <label>HeadLine</label><br/>
-            <input style="width: 800px" placeholder="Write headline here..." type="text" th:field="*{headLine}" th:class="${#fields.hasErrors('headLine') ? 'form-control is-invalid' : 'form-control'}" />
-            <div th:if="${#fields.hasErrors('headLine')}" th:errors="*{headLine}" class="invalid-feedback"></div>
+            <input
+                    style="width: 100%"
+                    class="form-control mb-2"
+                    placeholder="Write headline here..."
+                    type="text"
+                    th:field="*{headLine}" />
+            <div
+                    th:if="${#fields.hasErrors('headLine')}"
+                    th:errors="*{headLine}"
+                    class="invalid-feedback">
+            </div>
         </div>
         <div class="col">
 
@@ -73,9 +87,28 @@
             <div  class="col-6 clearfix">
                 <label>Content</label>
                 <br/>
-                <textarea style="width: 800px" rows="10" placeholder="Write content here..." cols="" th:field="*{content}" th:class="${#fields.hasErrors('content') ? 'form-control is-invalid' : 'form-control'}" ></textarea>
-                <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></div>
-                <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="invalid-feedback"></div>
+                <textarea
+                        style="width: 100%"
+                        class="form-control mb-2"
+                        rows="10"
+                        placeholder="Write content here..."
+                        cols=""
+                        th:field="*{content}"
+                        >
+                </textarea>
+                <div
+                        th:if="${#fields.hasErrors('content')}"
+                        th:errors="*{content}"
+                        class="alert alert-danger"
+                        role="alert">
+
+                </div>
+                <div
+                        th:if="${#fields.hasErrors('headLine')}"
+                        th:errors="*{headLine}"
+                        class="alert alert-danger"
+                        role="alert">
+                </div>
                 <button type="submit" class="btn btn-primary float-bottom">Create Post</button>
             </div >
             <div class="col">

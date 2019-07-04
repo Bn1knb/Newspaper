@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${user.username}">Moderator Page</title>
+    <title>Error</title>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 </head>
-<body class="text-center" style="background: whitesmoke">
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<body style="background: darkgrey" class="text-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
     <th:block th:switch="${user.getRole()}">
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
             <a class="navbar-brand" href="/index">
-                <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+                <img src="../../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
             </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/feed">Feed</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/posts/create">Post news</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
                     <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
@@ -41,41 +44,7 @@
         </div>
     </th:block>
 </nav>
-<h1> MODERATOR PAGE</h1>
-<h2>Welcome: <span th:utext="${user.username}"></span></h2>
-<h3>All Posted news:</h3> </br>
-
-<form method="post" th:object="${user}" th:action="@{/user}" class="text-center" >
-    <td>
-        <table>
-            <tbody>
-            <tr th:each="p : ${allPosts}">
-                <td style="text-align: left">
-                    <a th:text="${p.headLine}   "
-                       th:href="@{/posts/view/{id}/(id=${p.id})}">
-                    </a>
-                </td>
-                <td style="text-align: left">
-                    <span th:text="${p.date}  "></span>
-                </td>
-                <td>
-                    <div th:if="${p.isApproved()}">
-                        <div><b>approved</b></div>
-                    </div>
-                    <div th:unless="${p.isApproved()}">
-                        <div><b>not approved yet</b></div>
-                    </div>
-                </td>
-                <td>
-                    <a class="btn btn-danger" th:href="@{/post/delete/{id}/(id=${p.id})}">delete</a>
-                </td>
-                <td>
-                    <a class="btn btn-success" th:href="@{/post/approve/{id}/(id=${p.id})}">approve</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </td>
-</form>
+<h1>Error 403</h1>
+    <h1 th:if="${message != null}" th:utext="${message}" style="color: red;"></h1>
 </body>
 </html>

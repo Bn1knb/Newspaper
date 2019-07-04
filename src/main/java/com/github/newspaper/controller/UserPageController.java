@@ -17,10 +17,14 @@ import java.util.List;
 @Controller
 public class UserPageController {
 
+    private final PostService postService;
+    private final UserService userService;
+
     @Autowired
-    PostService postService;
-    @Autowired
-    UserService userService;
+    public UserPageController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String view(Model model, Principal principal) {
@@ -50,7 +54,7 @@ public class UserPageController {
         return "redirect:/user";
     }
 
-    @RequestMapping("/users/{username}")
+    @RequestMapping("/users/view/{username}")
     public String view(@PathVariable("username") String username, Model model, Principal principal) {
 
         User user = userService.findByUsername(username);
@@ -64,6 +68,6 @@ public class UserPageController {
         model.addAttribute("roleModerator", "MODERATOR");
         model.addAttribute("allPosts", allPosts);
         model.addAttribute("user", user);
-        return "users";
+        return "users/view";
     }
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,13 +17,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @Size(min = 10, message = "There must be some content!")
     private String content;
 
     @NotNull
     private boolean isApproved;
 
-    @NotNull
+    @Size(min = 5, message = " Hedline must be at least 5 characters long")
     private String headLine;
 
     @ManyToOne(fetch = FetchType.LAZY)

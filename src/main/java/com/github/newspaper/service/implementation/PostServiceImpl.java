@@ -42,24 +42,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Iterable<Post> getPostsOrderBYDate() {
-
-        return null;
-    }
-
-    @Override
     public Iterable<Post> getPostsOrderByComments() {
         return null;
     }
 
     @Override
     public List<Post> findAllPostsOfUser(User user) {
-        return postRepository.findAllByUserOrderByDate(user);
+        return postRepository.findAllByUserOrderByDateDesc(user);
     }
 
     @Override
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public List<Post> findAllOrderByDate() {
+        return postRepository.findAllbyOrderByDateDesc();
     }
 
     @Override

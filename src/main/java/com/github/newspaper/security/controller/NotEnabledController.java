@@ -13,8 +13,12 @@ import java.security.Principal;
 @Controller
 public class NotEnabledController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public NotEnabledController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(value = {"/errors/userNotApprovedYet", "posts/errors/userNotApprovedYet"}, method = RequestMethod.GET)
     public String notEnabled(Model model, Principal principal) {

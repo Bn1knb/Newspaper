@@ -17,13 +17,12 @@ public interface PostService {
 
     void change(String headline);
 
-    Iterable<Post> getPostsOrderBYDate();
 
     Iterable<Post> getPostsOrderByComments();
 
     List<Post> findAllPostsOfUser(User user);
 
-    List<Post> findAll();
+    List<Post> findAllOrderByDate();
 
     Post findById(Long id);
 

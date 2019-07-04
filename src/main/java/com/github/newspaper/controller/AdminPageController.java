@@ -15,8 +15,12 @@ import java.util.List;
 @Controller
 public class AdminPageController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public AdminPageController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String index(Model model, Principal principal) {
@@ -26,7 +30,7 @@ public class AdminPageController {
 
         if (allUsers == null) {
 
-            model.addAttribute("ErrorMessage", "Sorry no users yet");
+            model.addAttribute("ErrorMessage", "Sorry no users");
 
             return "admin";
         }
@@ -39,14 +43,12 @@ public class AdminPageController {
     @RequestMapping("/users/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
 
-
         userService.delete(id);
         return "redirect:/admin";
     }
 
     @RequestMapping("/users/enable/{id}")
     public String enable(@PathVariable("id") Long id) {
-
 
         userService.enable(userService.findById(id));
         return "redirect:/admin";
@@ -55,12 +57,12 @@ public class AdminPageController {
     @RequestMapping("/users/makeadmin/{username}")
     public String setAsAdmin(@PathVariable("username") String username) {
         userService.setRole(userService.findByUsername(username), "ADMIN");
-        return "redirect:/users/" + username;
+        return "redirect:/users/view/" + username;
     }
 
     @RequestMapping("/users/makemoderator/{username}")
     public String setAsModerator(@PathVariable("username") String username) {
         userService.setRole(userService.findByUsername(username), "MODERATOR");
-        return "redirect:/users/" + username;
+        return "redirect:/users/view/" + username;
     }
 }

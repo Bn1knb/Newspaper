@@ -33,6 +33,11 @@
                     <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pull-right">Logout</a>
+                </li>
+            </ul>
         </div>
     </th:block>
 </nav>
@@ -77,7 +82,7 @@
                         <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
                         <span th:if="${p.user}" th:remove="tag">
 	          <i>by</i>
-                <span> <a th:text="${p.user.username}" th:href="@{/users/{username}/(username=${p.user.username})}">username</a></span>
+                <span> <a th:text="${p.user.username}" th:href="@{/users/view/{username}/(username=${p.user.username})}">username</a></span>
 	        </span>
                     </div>
                     <p class="content" th:utext="${p.content}">Post content</p>

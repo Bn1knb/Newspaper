@@ -22,14 +22,13 @@
                     <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="150" height="150"/>
                     <h4 class="text-center">News come first</h4>
                     <br/>
-                    <form class="form-signin" th:action="@{/login}" method="post">
+                    <form name="signin" class="form-signin" th:action="@{/login}" method="post">
                         <input type="text"
                                id="username"
                                name="username"
                                class="form-control mb-2"
                                placeholder="Username"
                                autofocus required>
-
                         <input type="password"
                                id="password"
                                name="password"
@@ -39,6 +38,12 @@
 
                         <button class="btn btn-lg btn-primary btn-block mb-1" id="login-submit" type="submit">Sing in
                         </button>
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Invalid username or password.
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            You have been logged out.
+                        </div>
                     </form>
                 </div>
             </div>
