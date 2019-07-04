@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -30,7 +32,9 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("userDto") @Valid UserRegistrationDto userDto, BindingResult bindingResult) {
+    public String register(@ModelAttribute("userDto") @Valid UserRegistrationDto userDto,
+                           BindingResult bindingResult,
+                           HttpServletRequest request) throws ServletException {
 
         //User existing = userService.findUserByEmail(userDto.getEmail());
 
@@ -44,7 +48,8 @@ public class RegistrationController {
         }
 
         userService.save(userDto);
+        request.login(userDto.getUsername(), userDto.getPassword());
 
-        return "redirect:login";
+        return "redirect:/feed";
     }
 }

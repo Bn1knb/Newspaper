@@ -59,19 +59,17 @@
 
 <main id="posts" role="main" class="container-fluid">
     <div class="row">
-        <aside class="col-md-2 col-3 blog-sidebar">
+        <aside class="col-md-2 col-3 blog-sidebar" style="position: sticky">
             <h2>Recent Posts</h2>
-            <td>
-                <table>
-                    <tbody>
-                    <tr th:each="p : ${latest5Posts}">
-                        <td>
-                            <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
+            <table>
+                <tbody>
+                <tr th:each="p : ${latest5Posts}">
+                    <td>
+                        <a th:text="${p.headLine}  " th:href="@{/posts/view/{id}/(id=${p.id})}"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </aside>
         <div class="col-md-8 col-12 blog-main">
             <div class="blog-post">
@@ -82,7 +80,8 @@
                         <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
                         <span th:if="${p.user}" th:remove="tag">
 	          <i>by</i>
-                <span> <a th:text="${p.user.username}" th:href="@{/users/view/{username}/(username=${p.user.username})}">username</a></span>
+                <span> <a th:text="${p.user.username}"
+                          th:href="@{/users/view/{username}/(username=${p.user.username})}">username</a></span>
 	        </span>
                     </div>
                     <p class="content" th:utext="${p.content}">Post content</p>
