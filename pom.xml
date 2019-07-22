@@ -6,16 +6,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from dao -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.github</groupId>
+    <groupId>com.github.bn1knb</groupId>
     <artifactId>newspaper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <description>Demo project for Spring Boot</description>
+    <name>Newspaper</name>
+    <description>imple Newspaper project using Spring framework and Thymeleaf templates engine</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <thymeleaf.springsecurity4.version>3.0.4.RELEASE</thymeleaf.springsecurity4.version>
     </properties>
 
     <dependencies>
@@ -33,7 +33,23 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -47,11 +63,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.15</version>
         </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-            <version>${thymeleaf.springsecurity4.version}</version>
-        </dependency>
+
     </dependencies>
 
     <build>
