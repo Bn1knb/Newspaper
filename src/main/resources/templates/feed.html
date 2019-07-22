@@ -46,7 +46,8 @@
 <div class="container-fluid">
     <div class="jumbotron p-5 text-white p-md-5 rounded"
          style="width: 100%;"
-         th:style="'background-image:url(' + @{images/header.png} + '); background-size:cover'">
+         th:style="'background-image:url(' + @{images/jumbotron.png} + '); background-size:cover'">
+        <!-- insert jumbotron image here -->
         <div>
             <div class="col-md-6 px-0">
                 <h1 style="background: #000000; width: 230px; font-family: 'Times New Roman'">Read news.</h1>
@@ -76,13 +77,14 @@
                 <article th:each="p : ${latest3Posts}">
                     <h3 class="blog-post-title" th:text="${p.headLine}">headline</h3>
                     <div class="date blog-post-meta">
+                        <span th:if="${p.date}" th:remove="tag">
                         <i>Posted on</i>
                         <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">date</span>
                         <span th:if="${p.user}" th:remove="tag">
-	          <i>by</i>
-                <span> <a th:text="${p.user.username}"
+	                    <i>by</i>
+                        <span> <a th:text="${p.user.username}"
                           th:href="@{/users/view/{username}/(username=${p.user.username})}">username</a></span>
-	        </span>
+	                    </span>
                     </div>
                     <p class="content" th:utext="${p.content}">Post content</p>
                 </article>
@@ -92,7 +94,7 @@
 </main>
 
 <footer class="page-footer font-small blue pt-4 footer">
-    <div class="sticky-bottom">
+    <div class="fixed-bottom">
         <div class="footer-copyright text-center py-3">Created with love 2019 Github:
             <a href="https://www.github/bn1knb/newspaper"> Bn1knB</a>
         </div>

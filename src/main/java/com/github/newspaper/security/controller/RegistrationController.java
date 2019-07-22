@@ -3,6 +3,7 @@ package com.github.newspaper.security.controller;
 import com.github.newspaper.dto.UserRegistrationDto;
 import com.github.newspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,11 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
-    public String registerForm(Model model) {
+    public String registerForm(Model model, Authentication authentication) {
+
+        if (authentication != null) {
+            return "redirect:feed";
+        }
 
         model.addAttribute("userDto", new UserRegistrationDto());
         return "register";

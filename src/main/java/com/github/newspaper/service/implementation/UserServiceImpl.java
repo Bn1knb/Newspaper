@@ -35,8 +35,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.IsEnabled(user);
     }
 
-    //TODO change role in user to string not collection and covert to collection here note: used for custom redirect
-
     @Override
     public void setRole(User user, String role) {
 
@@ -48,6 +46,7 @@ public class UserServiceImpl implements UserService {
     public void save(UserRegistrationDto userDto) {
 
         User user = new User();
+        user.setEnabled(false);
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());

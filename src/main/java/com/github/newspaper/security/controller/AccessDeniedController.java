@@ -30,6 +30,6 @@ public class AccessDeniedController {
             model.addAttribute("user", userService.findByUsername(principal.getName()));
         }
 
-        return "403Page";
+        return "errors/403Page";
     }
 }

@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/post/**")
                         .hasAnyRole("ADMIN", "MODERATOR")
                     .antMatchers("/register")
-                        .permitAll()
+                        .anonymous()
                     .antMatchers("/index")
                         .permitAll()
                     .antMatchers("/")

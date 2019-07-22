@@ -4,6 +4,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,21 +17,21 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String username;
 
-    @NotNull
+    @NotBlank
     private String email;
 
-    @NotNull
+    @NotBlank
     private String password;
 
     private Date createdAt;
 
-    private boolean isEnabled = false;
+    private boolean isEnabled;
 
     private String role;
 
