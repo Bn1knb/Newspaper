@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>main page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Sign up</title>
+</head>
+<body class="text-center" style="background: whitesmoke">
+
+<div class="container pt-3">
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-6 col-md-4">
+            <div class="card border-info test-center">
+                <div class="card-header">
+                    Sign up
+                </div>
+                <div class="card-body text-center">
+                    <form class="form-signin" method="post" th:action="@{/register}" th:object="${userDto}">
+                        <input type="text"
+                               th:field="*{username}"
+                               placeholder="Username"
+                               class="form-control mb-2">
+                        <br/>
+                        <input type="text"
+                               th:field="*{email}"
+                               placeholder="Email"
+                               class="form-control mb-2">
+                        </br>
+
+                        <input type="password"
+                               th:field="*{password}"
+                               placeholder="Password"
+                               class="form-control mb-2">
+                        <br/>
+                        <input type="submit" class="btn btn-lg btn-primary btn-block mb-1" th:value="register">
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('username')}">
+                                <div class="alert alert-danger" role="alert" th:errors="*{username}">
+                                </div>
+                            </span>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('email')}">
+                                <div class="alert alert-danger" role="alert" th:errors="*{email}">
+                                </div>
+                            </span>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('password')}">
+                                <div class="alert alert-danger" role="alert" th:errors="*{password}">
+                                </div>
+                            </span>
+                    </form>
+                </div>
+            </div>
+            <a href="/login" class="float-right">Already have an account?</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

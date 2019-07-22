@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username}">Admin Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+</head>
+<body style="background: whitesmoke" class="text-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <th:block th:switch="${user.getRole()}">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style>
+            <a class="navbar-brand" href="/index">
+                <img src="../static/images/logo.png" th:src="@{images/logo.png}" width="30" height="30" alt="logo">
+            </a>
+            <ul class="navbar-nav mr-auto" style="font-size: 15px">
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed">Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts/create">Post news</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:case="'ROLE_USER'" href="/user">Userpage</a>
+                    <a class="nav-link" th:case="'ROLE_ADMIN'" href="/admin">Adminpage</a>
+                    <a class="nav-link" th:case="'ROLE_MODERATOR'" href="/moderator">ModeratorPage</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pull-right">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+</nav>
+<h1> Admin page</h1>
+<h2>Welcome: <span th:utext="${user.username}"></span></h2>
+<h3>List of users:</h3> </br>
+
+<form method="post" th:object="${allUsers}" th:action="@{/admin}" class="text-center">
+
+    <table align="center">
+        <tbody>
+        <tr th:each="u : ${allUsers}">
+            <td style="text-align: left">
+                <span th:text="${u.getCreatedAt()}  "></span>
+            </td>
+            <td>
+                <span th:text="${u.role}  "></span>
+            </td>
+            <td>
+                    <span> <a th:text="${u.username}  "
+                              th:href="@{/users/view/{username}/(username=${u.username})}"></a></span>
+            </td>
+            <td>
+                <div th:if="${u.isEnabled()}  ">
+                    <div>enabled</div>
+                </div>
+                <div th:unless="${u.isEnabled()}  ">
+                    <div>not enabled yet</div>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/users/delete/{id}/(id=${u.id})}">delete</a>
+            </td>
+            <td>
+                <a class="btn btn-success" th:href="@{/users/enable/{id}/(id=${u.id})}">enable</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+
+<p th:if="${ErrorMessage != null}" th:utext="${ErrorMessage}" style="color: red;"></p>
+</body>
+</html>
